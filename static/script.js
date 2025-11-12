@@ -10,7 +10,28 @@ const urlHint = document.querySelector(".help");
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
+let shortLink = '';
 
+function fallbackCopyTextToClipboard(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed"; // Avoid scrolling to bottom
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    const successful = document.execCommand("copy");
+    console.log(successful ? "Text copied to clipboard" : "Failed to copy text");
+  } catch (err) {
+    console.error("Fallback: Failed to copy text: ", err);
+  }
+
+  document.body.removeChild(textarea);
+}
+
+document.getElementById("copy-icon").addEventListener("click", () => {
+  fallbackCopyTextToClipboard(shortLink);
+})
 
 if (urlParams.get("pwd")) {
   modeHeader.innerHTML = `
@@ -27,6 +48,7 @@ if (urlParams.get("pwd")) {
     if (json) {
       inpLink.value = json.link;
 
+      shortLink = `${URL}/r/${json.alias}`
       redirectLink.href = `${URL}/r/${json.alias}`;
       redirectLink.innerText = `${URL.split('//')[1]}/r/${json.alias}`;
 
@@ -54,7 +76,13 @@ submitButton.addEventListener("click", () => {
         'Content-Type': 'application/json', // Specify the content type as JSON
       },
       body: JSON.stringify({ "link": inpLink.value }), // Convert the data to a JSON string
-    }).then(response => response.text())
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.text()
+        }
+        response.text().then(text => urlHint.innerText = text)
+      })
       .then(text => {
         if (text == "OK") {
           submitButton.classList.add("is-success");
@@ -74,17 +102,18 @@ submitButton.addEventListener("click", () => {
       body: JSON.stringify({ "link": inpLink.value }), // Convert the data to a JSON string
     })
       .then(response => {
-        if(!response.ok){
-          response.text().then(text=>urlHint.innerText = text)
+        if (!response.ok) {
+          response.text().then(text => urlHint.innerText = text)
         } else {
           return response.json()
         }
       })
       .then(json => {
-        if(json){
+        if (json) {
+          shortLink = `${URL}/r/${json.alias}`
           redirectLink.href = `${URL}/r/${json.alias}`;
           redirectLink.innerText = `${URL.split('//')[1]}/r/${json.alias}`;
-  
+
           editLink.href = window.location.origin + window.location.pathname + `?pwd=${json.pwd}`;
           editLink.innerText = window.location.origin + window.location.pathname + `?pwd=${json.pwd}`;
         }

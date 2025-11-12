@@ -20,9 +20,15 @@
         <div class="field">
             <button class="button" id="submit">Create</button>
         </div>
-        <p>Short link: <a href="" id="redirect-link" target="_blank"></a></p>
-        <p>Edit link, view statistic: <a href="" id="edit-link"></a></p>
-        <p id="visits-count"></p>
+        <div class="content">
+            <p style="display: flex; align-items: center; gap: .5em">
+                Short link:
+                <a href="" id="redirect-link" target="_blank"></a>
+                <img id="copy-icon" src="/r/static/copy.svg" alt="" style="height: 1em; width: 1em; cursor: pointer;">
+            </p>
+            <p>Edit link, view statistic: <a href="" id="edit-link"></a></p>
+            <p id="visits-count"></p>
+        </div>
     </div>
 </body>
 </html>

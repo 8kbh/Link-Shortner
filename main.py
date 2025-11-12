@@ -89,7 +89,10 @@ def stat():
 @app.route("/r/edit", methods=["POST"])
 def edit():
     pwd = request.args.get("pwd")
-    link = request.get_json()["link"]
+    link = request.get_json().get("link", "")
+    if not is_valid_url(link):
+        return "Provided link is invalid", 400
+
     with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("UPDATE links SET link=? WHERE pwd=?", (link, pwd,))

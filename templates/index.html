@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/r/static/bulma.css">
+    <link rel="stylesheet" href="/r/static/style.css">
+    <script src="/r/static/script.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <h3 class="title">URL Shortner</h3>
+        <h4 class="title is-4" id="mode">Create</h4>
+        <div class="field">
+            <label for="link-inp">Link</label>
+            <input class="input" type="text" id="link-inp">
+            <p class="help is-danger"></p>
+        </div>
+        <div class="field">
+            <button class="button" id="submit">Create</button>
+        </div>
+        <p>Short link: <a href="" id="redirect-link" target="_blank"></a></p>
+        <p>Edit link, view statistic: <a href="" id="edit-link"></a></p>
+        <p id="visits-count"></p>
+    </div>
+</body>
+</html>

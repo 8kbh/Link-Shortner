@@ -3,12 +3,12 @@ import sqlite3
 from contextlib import contextmanager
 from urllib.parse import urlparse
 
-from flask import Flask, jsonify, redirect, request
+from flask import Flask, jsonify, redirect, request, render_template
 from flask_cors import CORS
 
 
 DATABASE = "links.db"
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/r/static', static_folder='static')
 CORS(app)
 
 
@@ -34,6 +34,11 @@ def get_db_connection():
         yield conn
     finally:
         conn.close()
+
+
+@app.route("/r/")
+def serve_r():
+    return render_template("index.html")
 
 
 @app.route("/r/<token>", methods=["GET"])

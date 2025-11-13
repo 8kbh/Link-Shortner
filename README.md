@@ -3,7 +3,11 @@
 
 Self-hosted link shortner.
 
-<img src="https://github.com/8kbh/Link-Shortner/tree/main/.readme/interface.png" alt=""/>
+
+<img src="https://github.com/8kbh/Link-Shortner/blob/main/.readme/interface.png?raw=true" alt=""/>
+
+
+> **Try now [8kbh.ru/r/](https://8kbh.ru/r/)**
 
 ## Features
 

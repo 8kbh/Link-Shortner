@@ -13,7 +13,7 @@ load_dotenv()
 DATABASE = os.environ.get("LS_DATABASE", "links.sqlite3")
 ENABLE_CORS = os.environ.get("ENABLE_CORS", "1")
 ENABLE_CORS = True if ENABLE_CORS == "1" else False
-HOST = os.environ.get("LS_HOST", "http://127.0.0.1:5020")
+HOST = os.environ.get("LS_HOST", "http://127.0.0.1:5020").strip()
 
 app = Flask(__name__, static_url_path='/r/static', static_folder='static')
 if ENABLE_CORS:

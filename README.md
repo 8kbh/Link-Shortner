@@ -18,5 +18,5 @@ uv sync
 
 ### Launch
 ```bash
-LS_HOST='http://127.0.0.1:5020' waitress-serve --host 127.0.0.1 --port 5020  main:app
+set LS_HOST=http://127.0.0.1:5020 &  waitress-serve --host 127.0.0.1 --port 5020  main:app
 ```

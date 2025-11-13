@@ -1,11 +1,14 @@
+
 # Link Shortner
 
 Self-hosted link shortner.
 
+<img src="https://github.com/8kbh/Link-Shortner/tree/main/.readme/interface.png" alt=""/>
+
 ## Features
 
  - link shortner
- - view open statistic
+ - view visits statistic
  - edit link
 
 ## Deploy

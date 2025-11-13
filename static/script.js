@@ -1,5 +1,3 @@
-const URL = 'http://127.0.0.1:5000';
-
 const inpLink = document.getElementById("link-inp");
 const submitButton = document.getElementById("submit");
 const redirectLink = document.getElementById("redirect-link");

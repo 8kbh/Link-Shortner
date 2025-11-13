@@ -5,11 +5,19 @@ from urllib.parse import urlparse
 
 from flask import Flask, jsonify, redirect, request, render_template
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-DATABASE = "links.db"
+DATABASE = os.environ.get("LS_DATABASE", "links.sqlite3")
+ENABLE_CORS = os.environ.get("ENABLE_CORS", "1")
+ENABLE_CORS = True if ENABLE_CORS == "1" else False
+HOST = os.environ.get("LS_HOST", "http://127.0.0.1:5020")
+
 app = Flask(__name__, static_url_path='/r/static', static_folder='static')
-CORS(app)
+if ENABLE_CORS:
+    CORS(app)
 
 
 def is_valid_url(url: str) -> bool:
@@ -36,9 +44,24 @@ def get_db_connection():
         conn.close()
 
 
+with get_db_connection() as conn:
+    cursor = conn.cursor()
+    cursor.execute(
+        """\
+CREATE TABLE IF NOT EXISTS "links" (
+    "id"	INTEGER NOT NULL UNIQUE,
+    "alias"	TEXT NOT NULL,
+    "link"	TEXT NOT NULL,
+    "pwd"	TEXT NOT NULL,
+    "view_count"	INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY("id" AUTOINCREMENT)
+);""")
+    conn.commit()
+
+
 @app.route("/r/")
 def serve_r():
-    return render_template("index.html")
+    return render_template("index.html", host=HOST)
 
 
 @app.route("/r/<token>", methods=["GET"])

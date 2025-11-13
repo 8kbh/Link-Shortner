@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/r/static/bulma.css">
-    <link rel="stylesheet" href="/r/static/style.css">
-    <script src="/r/static/script.js" defer></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='bulma.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+    <script defer>const URL = '{{host}}';</script>
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
 </head>
 
 <body>
@@ -35,7 +37,7 @@
             <p style="display: flex; align-items: center; gap: .5em">
                 Short link:
                 <a href="" id="redirect-link" target="_blank"></a>
-                <img id="copy-icon" src="/r/static/copy.svg" alt="" style="height: 1em; width: 1em; cursor: pointer;">
+                <img id="copy-icon" src="{{url_for('static', filename='copy.svg')}}" alt="" style="height: 1em; width: 1em; cursor: pointer;">
             </p>
             <p>Edit link, view statistic: <a href="" id="edit-link"></a></p>
             <p id="visits-count"></p>
